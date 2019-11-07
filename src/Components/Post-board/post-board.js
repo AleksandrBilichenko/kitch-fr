@@ -10,8 +10,14 @@ const posts = [
         postCategory: 'Sweets',
         postDishLocation: "ConditerWorld",
         postIngridients: {
-            eggs: 2,
-            creativity: 100
+            eggs: {
+                type: 'sht',
+                count: 2
+            },
+            creativity: {
+                type: 'unknown',
+                count: 100 
+            }
         },
         postDescription: "The cake is very tasty",
         likes: 0,
@@ -32,8 +38,14 @@ const posts = [
         postCategory: 'Coctails',
         postDishLocation: "Bar",
         postIngridients: {
-            strawberry: 1,
-            alcohol: 10 
+            strawberry: {
+                type: 'mg',
+                count: 5
+            },
+            alcohol: {
+                type: 'ml',
+                count: 10 
+            }
         },
         postDescription: "Drink and run",
         likes: 1,
@@ -48,8 +60,14 @@ const posts = [
         postCategory: 'Rolls',
         postDishLocation: "Japan",
         postIngridients: {
-            rise: 2,
-            nori: 100
+            rise: {
+                type: 'gr',
+                count: 2
+            },
+            nori: {
+                type: 'sht',
+                count: 100
+            }
         },
         postDescription: "The cake is very tasty",
         likes: 0,
@@ -67,12 +85,14 @@ const posts = [
 
 
 export default class PostBoard extends Component {
-    ingredientMapper = (ingreds) => {
+
+     ingredientMapper = (ingreds) => {
         const newIngredientsArray = Object.entries(ingreds).map(([key, value])=> {
             return (
-                <span className='d-flex'>
-                    <span>{key}</span>
-                    <span>{value}</span>
+                <span className='row d-flex mt-2'>
+                    <span className = "col-8 text-left key-style">{key}</span>
+                    <span className = "col-1 count-style">{value.count}</span>
+                    <span className = "col-1 text-left type-style">{value.type}</span>
                 </span>
             )
         })
@@ -83,10 +103,12 @@ export default class PostBoard extends Component {
         const newArr = posts.map((item, index)=> {
             return(
                 <div className='d-flex flex-column post-box'>
-                    <div className='d-flex'>
+                    <div className='row d-flex pl-5 pt-4'>
                         <img className="pic-sizing" src={item.postPictureUrl} alt={`dish number ${index}`}/>
-                        <div className='d-flex flex-column'>
-                            <h1 className='align-self-center'>{item.postName}</h1>
+                        <div className='col-8 d-flex flex-column'>
+                            <div className = 'd-flex justify-content-center'>
+                                <h1 className = 'header-style'>{item.postName}</h1>
+                            </div>
                             <ol>
                                 {this.ingredientMapper(item.postIngridients)}
                             </ol>
